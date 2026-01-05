@@ -1,0 +1,31 @@
+{
+  "name": "kebab",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "bun run --filter @kebab/backend dev & bun run --filter @kebab/frontend dev",
+    "dev:backend": "bun run --filter @kebab/backend dev",
+    "dev:frontend": "bun run --filter @kebab/frontend dev",
+    "build": "bun run --filter @kebab/backend build && bun run --filter @kebab/frontend build",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "bun run --filter @kebab/backend type-check && bun run --filter @kebab/frontend type-check",
+    "test": "bun run --filter @kebab/backend test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.3.3"
+  }
+}
