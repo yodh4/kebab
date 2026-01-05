@@ -52,11 +52,8 @@ postgres-data/
 # Drizzle
 drizzle/
 
-# Planning docs
-PROJECT_OVERVIEW.md
-docs/
+# docs
 .ignore/
-.ignore.md
 
 # Misc
 .turbo
