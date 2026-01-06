@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import boardsRouter from './routes/boards';
 
 const app = new Hono();
 
@@ -13,7 +14,8 @@ app.get('/health', (c) => {
   return c.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// API routes will be added here in later slices
+// API routes
+app.route('/api/boards', boardsRouter);
 
 const PORT = process.env.PORT || 4000;
 
