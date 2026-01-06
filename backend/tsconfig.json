@@ -9,7 +9,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "types": ["bun"],
     "paths": {
       "@kebab/shared": ["../packages/shared/src"]
     }
