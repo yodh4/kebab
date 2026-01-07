@@ -52,8 +52,12 @@ postgres-data/
 # Drizzle
 drizzle/
 
-# docs
-.ignore/
+# AI_RELATED
+.AI_DOCS/
+docs/
+AGENTS.md
+GEMINI.md
+.ignore
 
 # Misc
 .turbo
