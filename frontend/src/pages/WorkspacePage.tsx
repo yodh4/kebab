@@ -10,6 +10,7 @@ function WorkspacePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [deletingBoardId, setDeletingBoardId] = useState<string | null>(null);
 
   const fetchBoards = async () => {
     try {
@@ -95,6 +96,31 @@ function WorkspacePage() {
     await fetchBoards();
   };
 
+  const handleDeleteBoard = async (boardId: string) => {
+    setDeletingBoardId(boardId);
+
+    try {
+      const response = await fetch(`${API_URL}/api/boards/${boardId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Board not found');
+        }
+        throw new Error('Failed to delete board');
+      }
+
+      // Manual refetch strategy
+      await fetchBoards();
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete board';
+      alert(errorMessage);
+    } finally {
+      setDeletingBoardId(null);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -135,7 +161,12 @@ function WorkspacePage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {boards.map((board) => (
-              <BoardCard key={board.id} board={board} />
+              <BoardCard
+                key={board.id}
+                board={board}
+                onDelete={handleDeleteBoard}
+                isDeleting={deletingBoardId === board.id}
+              />
             ))}
           </div>
         )}
