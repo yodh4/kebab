@@ -19,7 +19,8 @@
     "@kebab/shared": "workspace:*",
     "drizzle-orm": "^0.33.0",
     "hono": "^4.6.0",
-    "postgres": "^3.4.0"
+    "postgres": "^3.4.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@types/bun": "^1.3.5",
