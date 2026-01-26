@@ -16,6 +16,7 @@ export default defineConfig({
         'dist/',
         'drizzle/',
         'src/db/schema.ts', // Schema definitions are declarative, not testable logic
+        'src/db/client.ts', // Database client initialization is infrastructure setup
       ],
       thresholds: {
         lines: 80,
