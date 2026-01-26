@@ -49,9 +49,6 @@ postgres-data/
 # Docker
 .docker/
 
-# Drizzle
-drizzle/
-
 # AI_RELATED
 .AI_DOCS/
 docs/
