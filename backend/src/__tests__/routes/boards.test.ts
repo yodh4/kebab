@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { BoardResponse } from '@kebab/shared';
 import { createTestApp, makeRequest } from '../helpers/api';
 import { createTestBoards, createTestBoard, sampleBoards } from '../helpers/fixtures';
 import { getTestDb } from '../helpers/db';
@@ -26,12 +27,7 @@ describe('GET /api/boards', () => {
     const response = await makeRequest(app, 'GET', '/api/boards');
 
     expect(response.status).toBe(200);
-    const data = (await response.json()) as Array<{
-      id: string;
-      title: string;
-      createdAt: string;
-      updatedAt: string;
-    }>;
+    const data = (await response.json()) as BoardResponse[];
 
     // Should return all 3 boards
     expect(data).toHaveLength(3);
@@ -61,12 +57,7 @@ describe('POST /api/boards', () => {
     });
 
     expect(response.status).toBe(201);
-    const data = (await response.json()) as {
-      id: string;
-      title: string;
-      createdAt: string;
-      updatedAt: string;
-    };
+    const data = (await response.json()) as BoardResponse;
 
     expect(data).toMatchObject({
       id: expect.any(String),
