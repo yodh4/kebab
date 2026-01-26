@@ -9,7 +9,14 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', 'src/__tests__/', '*.config.ts', 'dist/', 'drizzle/'],
+      exclude: [
+        'node_modules/',
+        'src/__tests__/',
+        '*.config.ts',
+        'dist/',
+        'drizzle/',
+        'src/db/schema.ts', // Schema definitions are declarative, not testable logic
+      ],
       thresholds: {
         lines: 80,
         functions: 80,
