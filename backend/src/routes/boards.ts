@@ -1,10 +1,16 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { eq } from 'drizzle-orm';
-import { db } from '../db/client';
+import { db as defaultDb } from '../db/client';
 import { boards } from '../db/schema';
 
 const app = new Hono();
+
+// Allow database injection for testing
+const getDb = () => {
+  // @ts-expect-error - Allow test environment to override db
+  return globalThis.__TEST_DB__ || defaultDb;
+};
 
 // Zod schema for creating a board
 const createBoardSchema = z.object({
@@ -14,6 +20,7 @@ const createBoardSchema = z.object({
 // GET /api/boards - List all boards
 app.get('/', async (c) => {
   try {
+    const db = getDb();
     const allBoards = await db.select().from(boards);
     return c.json(allBoards);
   } catch (error) {
@@ -25,6 +32,7 @@ app.get('/', async (c) => {
 // POST /api/boards - Create a new board
 app.post('/', async (c) => {
   try {
+    const db = getDb();
     const body = await c.req.json();
     const validation = createBoardSchema.safeParse(body);
 
@@ -44,6 +52,7 @@ app.post('/', async (c) => {
 // DELETE /api/boards/:id - Delete a board
 app.delete('/:id', async (c) => {
   try {
+    const db = getDb();
     const id = c.req.param('id');
 
     // Check if board exists
