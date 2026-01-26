@@ -12,3 +12,13 @@ if (typeof globalThis !== 'undefined') {
     },
   };
 }
+
+// Mock HTMLDialogElement methods (not supported in jsdom)
+// The <dialog> element's showModal() and close() are browser APIs that jsdom doesn't implement
+HTMLDialogElement.prototype.showModal = function () {
+  this.open = true;
+};
+
+HTMLDialogElement.prototype.close = function () {
+  this.open = false;
+};
