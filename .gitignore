@@ -55,6 +55,7 @@ docs/
 AGENTS.md
 GEMINI.md
 .ignore
+.opencode/
 
 # Misc
 .turbo
