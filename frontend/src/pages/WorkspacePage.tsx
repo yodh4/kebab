@@ -121,26 +121,6 @@ function WorkspacePage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">Loading boards...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600">Error: {error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -154,7 +134,15 @@ function WorkspacePage() {
           </button>
         </div>
 
-        {boards.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <p className="text-gray-600">Loading boards...</p>
+          </div>
+        ) : error ? (
+          <div className="flex items-center justify-center py-12">
+            <p className="text-red-600">Error: {error}</p>
+          </div>
+        ) : boards.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-500">No boards found. Create your first board!</p>
           </div>
