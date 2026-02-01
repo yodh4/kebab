@@ -17,6 +17,7 @@
     "format:check": "prettier --check .",
     "type-check": "bun run --filter @kebab/backend type-check && bun run --filter @kebab/frontend type-check",
     "test": "bun run --filter @kebab/backend test",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "devDependencies": {
