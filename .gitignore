@@ -62,3 +62,5 @@ GEMINI.md
 .next/
 .nuxt/
 .cache/
+playwright-report/
+test-results/
