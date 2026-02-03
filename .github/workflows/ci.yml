@@ -127,6 +127,11 @@ jobs:
       - name: Install Playwright Browsers
         run: bun x playwright install --with-deps
 
+      - name: Run migrations
+        run: bun run --filter @kebab/backend db:migrate
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/kebab_test
+
       - name: Run E2E tests
         run: bun run test:e2e
         env:
