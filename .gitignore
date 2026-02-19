@@ -52,10 +52,6 @@ postgres-data/
 # AI_RELATED
 .AI_DOCS/
 docs/
-AGENTS.md
-GEMINI.md
-.ignore
-.opencode/
 
 # Misc
 .turbo
