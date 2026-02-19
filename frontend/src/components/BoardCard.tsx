@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Board } from '@kebab/shared';
 
 interface BoardCardProps {
@@ -7,7 +8,11 @@ interface BoardCardProps {
 }
 
 function BoardCard({ board, onDelete, isDeleting }: BoardCardProps) {
-  const handleDelete = async () => {
+  const handleDelete = async (e: React.MouseEvent) => {
+    // Stop the click from bubbling up to the Link wrapper
+    e.preventDefault();
+    e.stopPropagation();
+
     const confirmed = window.confirm(`Are you sure you want to delete "${board.title}"?`);
 
     if (confirmed) {
@@ -16,7 +21,10 @@ function BoardCard({ board, onDelete, isDeleting }: BoardCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow relative group">
+    <Link
+      to={`/board/${board.id}`}
+      className="block bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow relative group"
+    >
       <button
         onClick={handleDelete}
         disabled={isDeleting}
@@ -49,7 +57,7 @@ function BoardCard({ board, onDelete, isDeleting }: BoardCardProps) {
           <p className="text-sm text-gray-600">Deleting...</p>
         </div>
       )}
-    </div>
+    </Link>
   );
 }
 
