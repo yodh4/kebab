@@ -3,11 +3,13 @@ import { z } from 'zod';
 import { asc, eq } from 'drizzle-orm';
 import { db as defaultDb } from '../db/client';
 import { boards, columns, tasks } from '../db/schema';
+import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import type * as schema from '../db/schema';
 
 const app = new Hono();
 
 // Allow database injection for testing
-const getDb = () => {
+const getDb = (): PostgresJsDatabase<typeof schema> => {
   // @ts-expect-error - Allow test environment to override db
   return globalThis.__TEST_DB__ || defaultDb;
 };
@@ -76,9 +78,8 @@ app.get('/:id', async (c) => {
       .orderBy(asc(columns.order), asc(columns.createdAt));
 
     // Fetch tasks per column — intentional N+1 for Phase 1B learning (ADR-003)
-    type BoardColumn = (typeof boardColumns)[number];
     const columnsWithTasks = await Promise.all(
-      boardColumns.map(async (col: BoardColumn) => {
+      boardColumns.map(async (col) => {
         const columnTasks = await db
           .select()
           .from(tasks)
