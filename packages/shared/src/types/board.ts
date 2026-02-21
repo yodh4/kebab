@@ -14,6 +14,11 @@ export interface BoardResponse {
   updatedAt: string; // ISO 8601 string
 }
 
+// Board with columns and tasks nested (used in GET /api/boards/:id response)
+export interface BoardWithDetails extends BoardResponse {
+  columns: import('./column').ColumnWithTasks[];
+}
+
 export interface CreateBoardDTO {
   title: string;
 }
